@@ -4,19 +4,19 @@
  * Enumerable class.
  * @author Alexander Prokhorov
  * @license Simplified BSD
- * @link https://github.com/Athari/YaLinqo YaLinqo on GitHub
+ * @link https://github.com/Athari/YaLinqo src on GitHub
  */
 
-namespace YaLinqo;
+namespace Gravatalonga\YaLinqo;
 
 // Differences: preserving keys and toSequental, *Enum for keywords, no (el,i) overloads, string lambda args (v,k,a,b,e etc.), toArray/toList/toDictionary, objects as keys, docs copied and may be incorrect, elementAt uses key instead of index, @throws doc incomplete, aggregater default seed is null not undefined, call/each, InvalidOperationException => UnexpectedValueException
 
 /**
- * A sequence of values indexed by keys, the primary class of YaLinqo.
+ * A sequence of values indexed by keys, the primary class of src.
  * <p>A sequence of values indexed by keys, which supports various operations: generation, projection, filtering, ordering, joining, grouping, aggregation etc.
  * <p>To create a Enumerable, call {@link Enumerable::from} (aliased as a global function {@link from}) or any of the generation functions. To convert to array, call {@link Enumerable::toArrayDeep} or any of the conversion functions.
  * @see from
- * @package YaLinqo
+ * @package src
  */
 class Enumerable implements \IteratorAggregate
 {
@@ -69,7 +69,7 @@ class Enumerable implements \IteratorAggregate
      * @param string $type The type to cast the elements to. Can be one of the built-in types: array, int (integer, long), float (real, double), null (unset), object, string.
      * @return Enumerable An sequence that contains each element of the source sequence cast to the specified type.
      * @link http://php.net/manual/language.types.type-juggling.php Type Juggling
-     * @package YaLinqo\Projection and filtering
+     * @package src\Projection and filtering
      */
     public function cast(string $type): Enumerable
     {
@@ -90,7 +90,7 @@ class Enumerable implements \IteratorAggregate
      * <p>The ofType method returns only elements of the specified type. To instead receive an error if an element cannot be cast, use {@link cast}.
      * @param string $type The type to filter the elements of the sequence on. Can be either class name or one of the predefined types: array, int (integer, long), callable (callable), float (real, double), null, string, object, numeric, scalar.
      * @return Enumerable A sequence that contains elements from the input sequence of the specified type.
-     * @package YaLinqo\Projection and filtering
+     * @package src\Projection and filtering
      */
     public function ofType(string $type): Enumerable
     {
@@ -115,7 +115,7 @@ class Enumerable implements \IteratorAggregate
      * @param callable $selectorValue {(v, k) ==> value} A transform function to apply to each value.
      * @param callable|null $selectorKey {(v, k) ==> key} A transform function to apply to each key. Default: key.
      * @return Enumerable A sequence whose elements are the result of invoking the transform functions on each element of source.
-     * @package YaLinqo\Projection and filtering
+     * @package src\Projection and filtering
      */
     public function select($selectorValue, $selectorKey = null): Enumerable
     {
@@ -141,7 +141,7 @@ class Enumerable implements \IteratorAggregate
      * @param callable|null $resultSelectorValue {(v, k1, k2) ==> value} A transform function to apply to each value of the intermediate sequence. Default: {(v, k1, k2) ==> v}.
      * @param callable|null $resultSelectorKey {(v, k1, k2) ==> key} A transform function to apply to each key of the intermediate sequence. Default: increment.
      * @return Enumerable A sequence whose elements are the result of invoking the one-to-many transform function on each element of the input sequence.
-     * @package YaLinqo\Projection and filtering
+     * @package src\Projection and filtering
      */
     public function selectMany($collectionSelector = null, $resultSelectorValue = null, $resultSelectorKey = null): Enumerable
     {
@@ -163,7 +163,7 @@ class Enumerable implements \IteratorAggregate
      * <p><b>Syntax</b>: where (predicate {(v, k) ==> result})
      * @param callable $predicate {(v, k) ==> result} A function to test each element for a condition.
      * @return Enumerable A sequence that contains elements from the input sequence that satisfy the condition.
-     * @package YaLinqo\Projection and filtering
+     * @package src\Projection and filtering
      */
     public function where($predicate): Enumerable
     {
@@ -190,7 +190,7 @@ class Enumerable implements \IteratorAggregate
      * @param callable|null $keySelector {(v, k) ==> key} A function to extract a key from an element. Default: value.
      * @param callable|int|null $comparer {(a, b) ==> diff} Difference between a and b: &lt;0 if a&lt;b; 0 if a==b; &gt;0 if a&gt;b. Can also be a combination of SORT_ flags.
      * @return OrderedEnumerable
-     * @package YaLinqo\Ordering
+     * @package src\Ordering
      */
     public function orderByDir($sortOrder, $keySelector = null, $comparer = null): OrderedEnumerable
     {
@@ -210,7 +210,7 @@ class Enumerable implements \IteratorAggregate
      * @param callable|null $keySelector {(v, k) ==> key} A function to extract a key from an element. Default: value.
      * @param callable|int|null $comparer {(a, b) ==> diff} Difference between a and b: &lt;0 if a&lt;b; 0 if a==b; &gt;0 if a&gt;b. Can also be a combination of SORT_ flags.
      * @return OrderedEnumerable
-     * @package YaLinqo\Ordering
+     * @package src\Ordering
      */
     public function orderBy($keySelector = null, $comparer = null): OrderedEnumerable
     {
@@ -226,7 +226,7 @@ class Enumerable implements \IteratorAggregate
      * @param callable|null $keySelector {(v, k) ==> key} A function to extract a key from an element. Default: value.
      * @param callable|int|null $comparer {(a, b) ==> diff} Difference between a and b: &lt;0 if a&lt;b; 0 if a==b; &gt;0 if a&gt;b. Can also be a combination of SORT_ flags.
      * @return OrderedEnumerable
-     * @package YaLinqo\Ordering
+     * @package src\Ordering
      */
     public function orderByDescending($keySelector = null, $comparer = null): OrderedEnumerable
     {
@@ -249,7 +249,7 @@ class Enumerable implements \IteratorAggregate
      * @param callable|null $resultSelectorValue {(v, e, k) ==> value} A function to create a result value from an element from the first sequence and a collection of matching elements from the second sequence. Default: {(v, e, k) ==> array(v, e)}.
      * @param callable|null $resultSelectorKey {(v, e, k) ==> key} A function to create a result key from an element from the first sequence and a collection of matching elements from the second sequence. Default: {(v, e, k) ==> k} (keys returned by outerKeySelector and innerKeySelector functions).
      * @return Enumerable A sequence that contains elements that are obtained by performing a grouped join on two sequences.
-     * @package YaLinqo\Joining and grouping
+     * @package src\Joining and grouping
      */
     public function groupJoin($inner, $outerKeySelector = null, $innerKeySelector = null, $resultSelectorValue = null, $resultSelectorKey = null): Enumerable
     {
@@ -283,7 +283,7 @@ class Enumerable implements \IteratorAggregate
      * @param callable|null $resultSelectorValue {(v1, v2, k) ==> result} A function to create a result value from two matching elements. Default: {(v1, v2, k) ==> array(v1, v2)}.
      * @param callable|null $resultSelectorKey {(v1, v2, k) ==> result} A function to create a result key from two matching elements. Default: {(v1, v2, k) ==> k} (keys returned by outerKeySelector and innerKeySelector functions).
      * @return Enumerable
-     * @package YaLinqo\Joining and grouping
+     * @package src\Joining and grouping
      */
     public function join($inner, $outerKeySelector = null, $innerKeySelector = null, $resultSelectorValue = null, $resultSelectorKey = null): Enumerable
     {
@@ -322,7 +322,7 @@ class Enumerable implements \IteratorAggregate
      * @param callable|null $resultSelectorValue {(e, k) ==> value} A function to create a result value from each group.
      * @param callable|null $resultSelectorKey {(e, k) ==> key} A function to create a result key from each group.
      * @return Enumerable A sequence of sequences indexed by a key.
-     * @package YaLinqo\Joining and grouping
+     * @package src\Joining and grouping
      */
     public function groupBy($keySelector = null, $valueSelector = null, $resultSelectorValue = null, $resultSelectorKey = null): Enumerable
     {
@@ -348,7 +348,7 @@ class Enumerable implements \IteratorAggregate
      * @param mixed $seed If seed is not null, the first element is used as seed. Default: null.
      * @throws \UnexpectedValueException If seed is null and sequence contains no elements.
      * @return mixed The final accumulator value.
-     * @package YaLinqo\Aggregation
+     * @package src\Aggregation
      */
     public function aggregate($func, $seed = null)
     {
@@ -386,7 +386,7 @@ class Enumerable implements \IteratorAggregate
      * @param mixed $seed If seed is not null, the first element is used as seed. Default: null.
      * @param mixed $default Value to return if sequence is empty. Default: null.
      * @return mixed The final accumulator value, or default if sequence is empty.
-     * @package YaLinqo\Aggregation
+     * @package src\Aggregation
      */
     public function aggregateOrDefault($func, $seed = null, $default = null)
     {
@@ -423,7 +423,7 @@ class Enumerable implements \IteratorAggregate
      * @param callable|null $selector {(v, k) ==> result} A transform function to apply to each element. Default: value.
      * @throws \UnexpectedValueException If sequence contains no elements.
      * @return number The average of the sequence of values.
-     * @package YaLinqo\Aggregation
+     * @package src\Aggregation
      */
     public function average($selector = null)
     {
@@ -447,7 +447,7 @@ class Enumerable implements \IteratorAggregate
      * <p>Returns a number that represents how many elements in the specified sequence satisfy a condition.
      * @param callable|null $predicate {(v, k) ==> result} A function to test each element for a condition. Default: null.
      * @return int The number of elements in the input sequence.
-     * @package YaLinqo\Aggregation
+     * @package src\Aggregation
      */
     public function count($predicate = null): int
     {
@@ -474,7 +474,7 @@ class Enumerable implements \IteratorAggregate
      * @param callable|null $selector {(v, k) ==> value} A transform function to apply to each element. Default: value.
      * @throws \UnexpectedValueException If sequence contains no elements.
      * @return number The maximum value in the sequence.
-     * @package YaLinqo\Aggregation
+     * @package src\Aggregation
      */
     public function max($selector = null)
     {
@@ -501,7 +501,7 @@ class Enumerable implements \IteratorAggregate
      * @param callable|null $selector {(v, k) ==> value} A transform function to apply to each element. Default: value.
      * @throws \UnexpectedValueException If sequence contains no elements.
      * @return number The maximum value in the sequence.
-     * @package YaLinqo\Aggregation
+     * @package src\Aggregation
      */
     public function maxBy($comparer, $selector = null)
     {
@@ -522,7 +522,7 @@ class Enumerable implements \IteratorAggregate
      * @param callable|null $selector {(v, k) ==> value} A transform function to apply to each element. Default: value.
      * @throws \UnexpectedValueException If sequence contains no elements.
      * @return number The minimum value in the sequence.
-     * @package YaLinqo\Aggregation
+     * @package src\Aggregation
      */
     public function min($selector = null)
     {
@@ -549,7 +549,7 @@ class Enumerable implements \IteratorAggregate
      * @param callable|null $selector {(v, k) ==> value} A transform function to apply to each element. Default: value.
      * @throws \UnexpectedValueException If sequence contains no elements.
      * @return number The minimum value in the sequence.
-     * @package YaLinqo\Aggregation
+     * @package src\Aggregation
      */
     public function minBy($comparer, $selector = null)
     {
@@ -570,7 +570,7 @@ class Enumerable implements \IteratorAggregate
      * <p>This method returns zero if source contains no elements.
      * @param callable|null $selector {(v, k) ==> result} A transform function to apply to each element.
      * @return number The sum of the values in the sequence.
-     * @package YaLinqo\Aggregation
+     * @package src\Aggregation
      */
     public function sum($selector = null)
     {
@@ -592,7 +592,7 @@ class Enumerable implements \IteratorAggregate
      * <p>Determines whether all elements of a sequence satisfy a condition. The enumeration of source is stopped as soon as the result can be determined.
      * @param callable $predicate {(v, k) ==> result} A function to test each element for a condition.
      * @return bool true if every element of the source sequence passes the test in the specified predicate, or if the sequence is empty; otherwise, false.
-     * @package YaLinqo\Sets
+     * @package src\Sets
      */
     public function all($predicate): bool
     {
@@ -613,7 +613,7 @@ class Enumerable implements \IteratorAggregate
      * <p>Determines whether any element of a sequence exists or satisfies a condition. The enumeration of source is stopped as soon as the result can be determined.
      * @param callable|null $predicate {(v, k) ==> result} A function to test each element for a condition. Default: null.
      * @return bool If predicate is null: true if the source sequence contains any elements; otherwise, false. If predicate is not null: true if any elements in the source sequence pass the test in the specified predicate; otherwise, false.
-     * @package YaLinqo\Sets
+     * @package src\Sets
      */
     public function any($predicate = null): bool
     {
@@ -644,7 +644,7 @@ class Enumerable implements \IteratorAggregate
      * @param mixed $value The value to append.
      * @param mixed $key The key of the value to append.
      * @return Enumerable A new sequence that ends with the value.
-     * @package YaLinqo\Sets
+     * @package src\Sets
      */
     public function append($value, $key = null): Enumerable
     {
@@ -660,7 +660,7 @@ class Enumerable implements \IteratorAggregate
      * <p><b>Syntax</b>: concat (other)
      * @param array|\Iterator|\IteratorAggregate|Enumerable $other The sequence to concatenate to the source sequence.
      * @return Enumerable A sequence that contains the concatenated elements of the two input sequences.
-     * @package YaLinqo\Sets
+     * @package src\Sets
      */
     public function concat($other): Enumerable
     {
@@ -678,7 +678,7 @@ class Enumerable implements \IteratorAggregate
      * <p>Determines whether a sequence contains a specified element. Enumeration is terminated as soon as a matching element is found.
      * @param $value mixed The value to locate in the sequence.
      * @return bool true if the source sequence contains an element that has the specified value; otherwise, false.
-     * @package YaLinqo\Sets
+     * @package src\Sets
      */
     public function contains($value): bool
     {
@@ -698,7 +698,7 @@ class Enumerable implements \IteratorAggregate
      * <p>Returns distinct elements from a sequence using values produced by keySelector as element keys.
      * @param callable|null $keySelector {(v, k) ==> value} A function to extract the element key from each element. Default: value.
      * @return Enumerable A sequence that contains distinct elements of the input sequence.
-     * @package YaLinqo\Sets
+     * @package src\Sets
      */
     public function distinct($keySelector = null): Enumerable
     {
@@ -726,7 +726,7 @@ class Enumerable implements \IteratorAggregate
      * @param array|\Iterator|\IteratorAggregate|Enumerable $other A sequence whose elements that also occur in the source sequence will cause those elements to be removed from the returned sequence.
      * @param callable|null $keySelector {(v, k) ==> key} A function to extract the element key from each element. Default: value.
      * @return Enumerable A sequence that contains the set difference of the elements of two sequences.
-     * @package YaLinqo\Sets
+     * @package src\Sets
      */
     public function except($other, $keySelector = null): Enumerable
     {
@@ -759,7 +759,7 @@ class Enumerable implements \IteratorAggregate
      * @param array|\Iterator|\IteratorAggregate|Enumerable $other A sequence whose distinct elements that also appear in the first sequence will be returned.
      * @param callable|null $keySelector {(v, k) ==> key} A function to extract the element key from each element. Default: value.
      * @return Enumerable A sequence that contains the elements that form the set intersection of two sequences.
-     * @package YaLinqo\Sets
+     * @package src\Sets
      */
     public function intersect($other, $keySelector = null): Enumerable
     {
@@ -791,7 +791,7 @@ class Enumerable implements \IteratorAggregate
      * @param mixed $value The value to prepend.
      * @param mixed $key The key of the value to prepend.
      * @return Enumerable A new sequence that begins with the value.
-     * @package YaLinqo\Sets
+     * @package src\Sets
      */
     public function prepend($value, $key = null): Enumerable
     {
@@ -812,7 +812,7 @@ class Enumerable implements \IteratorAggregate
      * @param array|\Iterator|\IteratorAggregate|Enumerable $other A sequence whose distinct elements form the second set for the union.
      * @param callable|null $keySelector {(v, k) ==> key} A function to extract the element key from each element. Default: value.
      * @return Enumerable A sequence that contains the elements from both input sequences, excluding duplicates.
-     * @package YaLinqo\Sets
+     * @package src\Sets
      */
     public function union($other, $keySelector = null): Enumerable
     {
@@ -849,7 +849,7 @@ class Enumerable implements \IteratorAggregate
      * <p>The toArray method does not traverse into elements of the sequence, only the sequence itself is converted. That is, if elements of the sequence are {@link Traversable} or arrays containing Traversable values, they will remain as is. To traverse deeply, you can use {@link toArrayDeep} method.
      * <p>Keys from the sequence are preserved. If the source sequence contains multiple values with the same key, the result array will only contain the latter value. To discard keys, you can use {@link toList} method. To preserve all values and keys, you can use {@link toLookup} method.
      * @return array An array that contains the elements from the input sequence.
-     * @package YaLinqo\Conversion
+     * @package src\Conversion
      */
     public function toArray(): array
     {
@@ -871,7 +871,7 @@ class Enumerable implements \IteratorAggregate
      * <p>The toArrayDeep method traverses into elements of the sequence. That is, if elements of the sequence are {@link Traversable} or arrays containing Traversable values, they will be converted to arrays too. To convert only the sequence itself, you can use {@link toArray} method.
      * <p>Keys from the sequence are preserved. If the source sequence contains multiple values with the same key, the result array will only contain the latter value. To discard keys, you can use {@link toListDeep} method. To preserve all values and keys, you can use {@link toLookup} method.
      * @return array An array that contains the elements from the input sequence.
-     * @package YaLinqo\Conversion
+     * @package src\Conversion
      */
     public function toArrayDeep(): array
     {
@@ -882,7 +882,7 @@ class Enumerable implements \IteratorAggregate
      * Proc for {@link toArrayDeep}.
      * @param $enum \Traversable Source sequence.
      * @return array An array that contains the elements from the input sequence.
-     * @package YaLinqo\Conversion
+     * @package src\Conversion
      */
     protected function toArrayDeepProc($enum): array
     {
@@ -899,7 +899,7 @@ class Enumerable implements \IteratorAggregate
      * <p>The toList method does not traverse into elements of the sequence, only the sequence itself is converted. That is, if elements of the sequence are {@link Traversable} or arrays containing Traversable values, they will remain as is. To traverse deeply, you can use {@link toListDeep} method.
      * <p>Keys from the sequence are discarded. To preserve keys and lose values with the same keys, you can use {@link toArray} method. To preserve all values and keys, you can use {@link toLookup} method.
      * @return array An array that contains the elements from the input sequence.
-     * @package YaLinqo\Conversion
+     * @package src\Conversion
      */
     public function toList(): array
     {
@@ -921,7 +921,7 @@ class Enumerable implements \IteratorAggregate
      * <p>The toListDeep method traverses into elements of the sequence. That is, if elements of the sequence are {@link Traversable} or arrays containing Traversable values, they will be converted to arrays too. To convert only the sequence itself, you can use {@link toList} method.
      * <p>Keys from the sequence are discarded. To preserve keys and lose values with the same keys, you can use {@link toArrayDeep} method. To preserve all values and keys, you can use {@link toLookup} method.
      * @return array An array that contains the elements from the input sequence.
-     * @package YaLinqo\Conversion
+     * @package src\Conversion
      */
     public function toListDeep(): array
     {
@@ -932,7 +932,7 @@ class Enumerable implements \IteratorAggregate
      * Proc for {@link toListDeep}.
      * @param $enum \Traversable Source sequence.
      * @return array An array that contains the elements from the input sequence.
-     * @package YaLinqo\Conversion
+     * @package src\Conversion
      */
     protected function toListDeepProc($enum): array
     {
@@ -949,7 +949,7 @@ class Enumerable implements \IteratorAggregate
      * @param callable|null $keySelector {(v, k) ==> key} A function to extract a key from each element. Default: key.
      * @param callable|null $valueSelector {(v, k) ==> value} A transform function to produce a result value from each element. Default: value.
      * @return array An array that contains keys and values selected from the input sequence.
-     * @package YaLinqo\Conversion
+     * @package src\Conversion
      */
     public function toDictionary($keySelector = null, $valueSelector = null): array
     {
@@ -969,7 +969,7 @@ class Enumerable implements \IteratorAggregate
      * @param int $options Bitmask consisting of JSON_HEX_QUOT, JSON_HEX_TAG, JSON_HEX_AMP, JSON_HEX_APOS, JSON_NUMERIC_CHECK, JSON_PRETTY_PRINT, JSON_UNESCAPED_SLASHES, JSON_FORCE_OBJECT, JSON_UNESCAPED_UNICODE. Default: 0.
      * @return string A JSON encoded string on success or false on failure.
      * @see json_encode
-     * @package YaLinqo\Conversion
+     * @package src\Conversion
      */
     public function toJSON(int $options = 0): string
     {
@@ -983,7 +983,7 @@ class Enumerable implements \IteratorAggregate
      * @param callable|null $keySelector {(v, k) ==> key} A function to extract a key from each element. Default: key.
      * @param callable|null $valueSelector {(v, k) ==> value} A transform function to produce a result value from each element. Default: value.
      * @return array An array that contains keys and value arrays selected from the input sequence.
-     * @package YaLinqo\Conversion
+     * @package src\Conversion
      */
     public function toLookup($keySelector = null, $valueSelector = null): array
     {
@@ -1001,7 +1001,7 @@ class Enumerable implements \IteratorAggregate
      * <p><b>Syntax</b>: toKeys ()
      * @return Enumerable A sequence with keys from the source sequence as values and sequental integers as keys.
      * @see array_keys
-     * @package YaLinqo\Conversion
+     * @package src\Conversion
      */
     public function toKeys(): Enumerable
     {
@@ -1013,7 +1013,7 @@ class Enumerable implements \IteratorAggregate
      * <p><b>Syntax</b>: toValues ()
      * @return Enumerable A sequence with the same values and sequental integers as keys.
      * @see array_values
-     * @package YaLinqo\Conversion
+     * @package src\Conversion
      */
     public function toValues(): Enumerable
     {
@@ -1026,7 +1026,7 @@ class Enumerable implements \IteratorAggregate
      * @param callable|null $propertySelector {(v, k) ==> name} A function to extract a property name from an element. Must return a valid PHP identifier. Default: key.
      * @param callable|null $valueSelector {(v, k) ==> value} A function to extract a property value from an element. Default: value.
      * @return \stdClass
-     * @package YaLinqo\Conversion
+     * @package src\Conversion
      */
     public function toObject($propertySelector = null, $valueSelector = null): \stdClass
     {
@@ -1046,7 +1046,7 @@ class Enumerable implements \IteratorAggregate
      * @param callable|null $valueSelector {(v, k) ==> value} A transform function to apply to each element. Default: value.
      * @return string
      * @see implode
-     * @package YaLinqo\Conversion
+     * @package src\Conversion
      */
     public function toString(string $separator = '', $valueSelector = null): string
     {
@@ -1066,7 +1066,7 @@ class Enumerable implements \IteratorAggregate
      * <p>Original LINQ method name: do.
      * @param callable $action {(v, k) ==> void} The action to invoke for each element in the sequence.
      * @return Enumerable The source sequence with the side-effecting behavior applied.
-     * @package YaLinqo\Actions
+     * @package src\Actions
      */
     public function call($action): Enumerable
     {
@@ -1086,7 +1086,7 @@ class Enumerable implements \IteratorAggregate
      * <p>Each method forces enumeration. To just add side-effect without enumerating, you can use {@link process} method.
      * <p>Original LINQ method name: foreach.
      * @param callable $action {(v, k) ==> void} The action to invoke for each element in the sequence.
-     * @package YaLinqo\Actions
+     * @package src\Actions
      */
     public function each($action = null)
     {
@@ -1102,7 +1102,7 @@ class Enumerable implements \IteratorAggregate
      * @param string $separator A string separating values in the result string. Default: ''.
      * @param callable|null $selector {(v, k) ==> value} A transform function to apply to each element. Default: value.
      * @see implode, echo
-     * @package YaLinqo\Actions
+     * @package src\Actions
      */
     public function write(string $separator = '', $selector = null)
     {
@@ -1115,7 +1115,7 @@ class Enumerable implements \IteratorAggregate
      * @param callable|null $selector {(v, k) ==> value} A transform function to apply to each element. Default: value.
      * @return string
      * @see echo, PHP_EOL
-     * @package YaLinqo\Actions
+     * @package src\Actions
      */
     public function writeLine($selector = null)
     {

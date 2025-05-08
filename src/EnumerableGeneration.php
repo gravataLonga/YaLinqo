@@ -4,14 +4,14 @@
  * EnumerableGeneration trait of Enumerable class.
  * @author Alexander Prokhorov
  * @license Simplified BSD
- * @link https://github.com/Athari/YaLinqo YaLinqo on GitHub
+ * @link https://github.com/Athari/YaLinqo src on GitHub
  */
 
-namespace YaLinqo;
+namespace Gravatalonga\YaLinqo;
 
 /**
  * Trait of {@link Enumerable} containing generation methods.
- * @package YaLinqo
+ * @package src
  */
 trait EnumerableGeneration
 {
@@ -23,7 +23,7 @@ trait EnumerableGeneration
      * @throws \InvalidArgumentException If source is not array or Traversible or Enumerable.
      * @throws \UnexpectedValueException If source contains no elements (checked during enumeration).
      * @return Enumerable Endless list of items repeating the source sequence.
-     * @package YaLinqo\Generation
+     * @package src\Generation
      */
     public static function cycle($source): Enumerable
     {
@@ -46,7 +46,7 @@ trait EnumerableGeneration
      * Returns an empty sequence.
      * <p><b>Syntax</b>: emptyEnum ()
      * @return Enumerable
-     * @package YaLinqo\Generation
+     * @package src\Generation
      */
     public static function emptyEnum(): Enumerable
     {
@@ -67,7 +67,7 @@ trait EnumerableGeneration
      * @param array|\Iterator|\IteratorAggregate|\Traversable|Enumerable $source Value to convert into Enumerable sequence.
      * @throws \InvalidArgumentException If source is not array or Traversible or Enumerable.
      * @return Enumerable
-     * @package YaLinqo\Generation
+     * @package src\Generation
      */
     public static function from($source): Enumerable
     {
@@ -95,7 +95,7 @@ trait EnumerableGeneration
      * @param callable|null $funcKey {(v, k) ==> key} State update function to run on key after every iteration of the generator loop. Default: increment.
      * @param mixed $seedKey Initial state of the generator loop ofr keys. Default: 0.
      * @return Enumerable
-     * @package YaLinqo\Generation
+     * @package src\Generation
      */
     public static function generate($funcValue, $seedValue = null, $funcKey = null, $seedKey = null): Enumerable
     {
@@ -122,7 +122,7 @@ trait EnumerableGeneration
      * @param int $start The first integer in the sequence. Default: 0.
      * @param int $step The difference between adjacent integers. Default: 1.
      * @return Enumerable
-     * @package YaLinqo\Generation
+     * @package src\Generation
      */
     public static function toInfinity(int $start = 0, int $step = 1): Enumerable
     {
@@ -141,7 +141,7 @@ trait EnumerableGeneration
      * @param int $flags Can be a combination of the following flags: PREG_PATTERN_ORDER, PREG_SET_ORDER, PREG_OFFSET_CAPTURE. Default: PREG_SET_ORDER.
      * @return Enumerable
      * @see preg_match_all
-     * @package YaLinqo\Generation
+     * @package src\Generation
      */
     public static function matches(string $subject, string $pattern, int $flags = PREG_SET_ORDER): Enumerable
     {
@@ -157,7 +157,7 @@ trait EnumerableGeneration
      * @param int $start The first integer in the sequence. Default: 0.
      * @param int $step The difference between adjacent integers. Default: 1.
      * @return Enumerable
-     * @package YaLinqo\Generation
+     * @package src\Generation
      */
     public static function toNegativeInfinity(int $start = 0, int $step = 1): Enumerable
     {
@@ -169,7 +169,7 @@ trait EnumerableGeneration
      * <p><b>Syntax</b>: returnEnum (element)
      * @param mixed $element The single element in the resulting sequence.
      * @return Enumerable Observable sequence containing the single specified element.
-     * @package YaLinqo\Generation
+     * @package src\Generation
      */
     public static function returnEnum($element): Enumerable
     {
@@ -185,7 +185,7 @@ trait EnumerableGeneration
      * @param int $count The number of integers to generate.
      * @param int $step The difference between adjacent integers. Default: 1.
      * @return Enumerable A sequence that contains a range of integral numbers.
-     * @package YaLinqo\Generation
+     * @package src\Generation
      */
     public static function range(int $start, int $count, int $step = 1): Enumerable
     {
@@ -207,7 +207,7 @@ trait EnumerableGeneration
      * @param int $count The number of integers to generate.
      * @param int $step The difference between adjacent integers. Default: 1.
      * @return Enumerable A sequence that contains a range of integral numbers.
-     * @package YaLinqo\Generation
+     * @package src\Generation
      */
     public static function rangeDown(int $start, int $count, int $step = 1): Enumerable
     {
@@ -224,7 +224,7 @@ trait EnumerableGeneration
      * @param int $step The difference between adjacent integers. Default: 1.
      * @throws \InvalidArgumentException If step is not a positive number.
      * @return Enumerable A sequence that contains a range of integral numbers.
-     * @package YaLinqo\Generation
+     * @package src\Generation
      */
     public static function rangeTo(int $start, int $end, $step = 1): Enumerable
     {
@@ -253,7 +253,7 @@ trait EnumerableGeneration
      * @param int $count The number of times to repeat the value in the generated sequence. Default: null.
      * @throws \InvalidArgumentException If count is less than 0.
      * @return Enumerable A sequence that contains a repeated value.
-     * @package YaLinqo\Generation
+     * @package src\Generation
      */
     public static function repeat($element, $count = null): Enumerable
     {
@@ -273,7 +273,7 @@ trait EnumerableGeneration
      * @param int $flags flags can be any combination of the following flags: PREG_SPLIT_NO_EMPTY, PREG_SPLIT_DELIM_CAPTURE, PREG_SPLIT_OFFSET_CAPTURE. Default: 0.
      * @return Enumerable
      * @see preg_split
-     * @package YaLinqo\Generation
+     * @package src\Generation
      */
     public static function split(string $subject, string $pattern, int $flags = 0): Enumerable
     {

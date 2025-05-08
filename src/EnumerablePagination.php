@@ -4,14 +4,14 @@
  * EnumerablePagination trait of Enumerable class.
  * @author Alexander Prokhorov
  * @license Simplified BSD
- * @link https://github.com/Athari/YaLinqo YaLinqo on GitHub
+ * @link https://github.com/Athari/YaLinqo src on GitHub
  */
 
-namespace YaLinqo;
+namespace Gravatalonga\YaLinqo;
 
 /**
  * Trait of {@link Enumerable} containing pagination methods.
- * @package YaLinqo
+ * @package src
  */
 trait EnumerablePagination
 {
@@ -24,7 +24,7 @@ trait EnumerablePagination
      * @param mixed $key The key of the value to retrieve.
      * @throws \UnexpectedValueException If sequence does not contain value with specified key.
      * @return mixed The value at the key in the source sequence.
-     * @package YaLinqo\Pagination
+     * @package src\Pagination
      */
     public function elementAt($key)
     {
@@ -51,7 +51,7 @@ trait EnumerablePagination
      * @param mixed $key The key of the value to retrieve.
      * @param mixed $default Value to return if sequence does not contain value with specified key. Default: null.
      * @return mixed default value if the key is not found in the source sequence; otherwise, the value at the specified key in the source sequence.
-     * @package YaLinqo\Pagination
+     * @package src\Pagination
      */
     public function elementAtOrDefault($key, $default = null)
     {
@@ -79,7 +79,7 @@ trait EnumerablePagination
      * @param callable|null $predicate {(v, k) ==> result} A function to test each element for a condition. Default: true.
      * @throws \UnexpectedValueException If source contains no matching elements.
      * @return mixed If predicate is null: the first element in the specified sequence. If predicate is not null: The first element in the sequence that passes the test in the specified predicate function.
-     * @package YaLinqo\Pagination
+     * @package src\Pagination
      */
     public function first($predicate = null)
     {
@@ -102,7 +102,7 @@ trait EnumerablePagination
      * @param mixed $default A default value.
      * @param callable|null $predicate {(v, k) ==> result} A function to test each element for a condition. Default: true.
      * @return mixed If predicate is null: default value if source is empty; otherwise, the first element in source. If predicate is not null: default value if source is empty or if no element passes the test specified by predicate; otherwise, the first element in source that passes the test specified by predicate.
-     * @package YaLinqo\Pagination
+     * @package src\Pagination
      */
     public function firstOrDefault($default = null, $predicate = null)
     {
@@ -125,7 +125,7 @@ trait EnumerablePagination
      * @param callable $fallback {() ==> value} A fallback function to return the default element.
      * @param callable|null $predicate {(v, k) ==> result} A function to test each element for a condition. Default: true.
      * @return mixed If predicate is null: the result of calling a fallback function if source is empty; otherwise, the first element in source. If predicate is not null: the result of calling a fallback function if source is empty or if no element passes the test specified by predicate; otherwise, the first element in source that passes the test specified by predicate.
-     * @package YaLinqo\Pagination
+     * @package src\Pagination
      */
     public function firstOrFallback($fallback, $predicate = null)
     {
@@ -149,7 +149,7 @@ trait EnumerablePagination
      * @param callable|null $predicate {(v, k) ==> result} A function to test each element for a condition. Default: true.
      * @throws \UnexpectedValueException If source contains no matching elements.
      * @return mixed If predicate is null: the last element in the specified sequence. If predicate is not null: The last element in the sequence that passes the test in the specified predicate function.
-     * @package YaLinqo\Pagination
+     * @package src\Pagination
      */
     public function last($predicate = null)
     {
@@ -178,7 +178,7 @@ trait EnumerablePagination
      * @param mixed $default A default value.
      * @param callable|null $predicate {(v, k) ==> result} A function to test each element for a condition. Default: true.
      * @return mixed If predicate is null: default value if source is empty; otherwise, the last element in source. If predicate is not null: default value if source is empty or if no element passes the test specified by predicate; otherwise, the last element in source that passes the test specified by predicate.
-     * @package YaLinqo\Pagination
+     * @package src\Pagination
      */
     public function lastOrDefault($default = null, $predicate = null)
     {
@@ -205,7 +205,7 @@ trait EnumerablePagination
      * @param callable $fallback {() ==> value} A fallback function to return the default element.
      * @param callable|null $predicate {(v, k) ==> result} A function to test each element for a condition. Default: true.
      * @return mixed If predicate is null: the result of calling a fallback function if source is empty; otherwise, the last element in source. If predicate is not null: the result of calling a fallback function if source is empty or if no element passes the test specified by predicate; otherwise, the last element in source that passes the test specified by predicate.
-     * @package YaLinqo\Pagination
+     * @package src\Pagination
      */
     public function lastOrFallback($fallback, $predicate = null)
     {
@@ -233,7 +233,7 @@ trait EnumerablePagination
      * @param callable|null $predicate {(v, k) ==> result} A function to test each element for a condition. Default: true.
      * @throws \UnexpectedValueException If source contains no matching elements or more than one matching element.
      * @return mixed If predicate is null: the single element of the input sequence. If predicate is not null: The single element of the sequence that passes the test in the specified predicate function.
-     * @package YaLinqo\Pagination
+     * @package src\Pagination
      */
     public function single($predicate = null)
     {
@@ -265,7 +265,7 @@ trait EnumerablePagination
      * @param callable|null $predicate {(v, k) ==> result} A function to test each element for a condition. Default: true.
      * @throws \UnexpectedValueException If source contains more than one matching element.
      * @return mixed If predicate is null: default value if source is empty; otherwise, the single element of the source. If predicate is not null: default value if source is empty or if no element passes the test specified by predicate; otherwise, the single element of the source that passes the test specified by predicate.
-     * @package YaLinqo\Pagination
+     * @package src\Pagination
      */
     public function singleOrDefault($default = null, $predicate = null)
     {
@@ -295,7 +295,7 @@ trait EnumerablePagination
      * @param callable|null $predicate {(v, k) ==> result} A function to test each element for a condition. Default: true.
      * @throws \UnexpectedValueException If source contains more than one matching element.
      * @return mixed If predicate is null: the result of calling a fallback function if source is empty; otherwise, the single element of the source. If predicate is not null: the result of calling a fallback function if source is empty or if no element passes the test specified by predicate; otherwise, the single element of the source that passes the test specified by predicate.
-     * @package YaLinqo\Pagination
+     * @package src\Pagination
      */
     public function singleOrFallback($fallback, $predicate = null)
     {
@@ -320,7 +320,7 @@ trait EnumerablePagination
      * <p>To search for the zero-based index of the first occurence, call {@link toValues} method first.
      * @param mixed $value The value to locate in the sequence.
      * @return mixed The key of the first occurrence of value, if found; otherwise, false.
-     * @package YaLinqo\Pagination
+     * @package src\Pagination
      */
     public function indexOf($value)
     {
@@ -342,7 +342,7 @@ trait EnumerablePagination
      * <p>To search for the zero-based index of the last occurence, call {@link toValues} method first.
      * @param mixed $value The value to locate in the sequence.
      * @return mixed The key of the last occurrence of value, if found; otherwise, null.
-     * @package YaLinqo\Pagination
+     * @package src\Pagination
      */
     public function lastIndexOf($value)
     {
@@ -360,7 +360,7 @@ trait EnumerablePagination
      * <p>To search for the zero-based index of the first occurence, call {@link toValues} method first.
      * @param callable $predicate {(v, k) ==> result} A function that defines the conditions of the element to search for.
      * @return mixed The key of the first occurrence of an element that matches the conditions defined by predicate, if found; otherwise, null.
-     * @package YaLinqo\Pagination
+     * @package src\Pagination
      */
     public function findIndex($predicate)
     {
@@ -379,7 +379,7 @@ trait EnumerablePagination
      * <p>To search for the zero-based index of the last occurence, call {@link toValues} method first.
      * @param callable $predicate {(v, k) ==> result} A function that defines the conditions of the element to search for.
      * @return mixed The key of the last occurrence of an element that matches the conditions defined by predicate, if found; otherwise, null.
-     * @package YaLinqo\Pagination
+     * @package src\Pagination
      */
     public function findLastIndex($predicate)
     {
@@ -400,7 +400,7 @@ trait EnumerablePagination
      * <p>The {@link take} and skip methods are functional complements. Given a sequence coll and an integer n, concatenating the results of coll->take(n) and coll->skip(n) yields the same sequence as coll.
      * @param int $count The number of elements to skip before returning the remaining elements.
      * @return Enumerable A sequence that contains the elements that occur after the specified index in the input sequence.
-     * @package YaLinqo\Pagination
+     * @package src\Pagination
      */
     public function skip(int $count)
     {
@@ -423,7 +423,7 @@ trait EnumerablePagination
      * <p>The {@link takeWhile} and skipWhile methods are functional complements. Given a sequence coll and a pure function p, concatenating the results of coll->takeWhile(p) and coll->skipWhile(p) yields the same sequence as coll.
      * @param callable $predicate {(v, k) ==> result} A function to test each element for a condition.
      * @return Enumerable A sequence that contains the elements from the input sequence starting at the first element in the linear series that does not pass the test specified by predicate.
-     * @package YaLinqo\Pagination
+     * @package src\Pagination
      */
     public function skipWhile($predicate)
     {
@@ -447,7 +447,7 @@ trait EnumerablePagination
      * <p>The take and {@link skip} methods are functional complements. Given a sequence coll and an integer n, concatenating the results of coll->take(n) and coll->skip(n) yields the same sequence as coll.
      * @param int $count The number of elements to return.
      * @return Enumerable A sequence that contains the specified number of elements from the start of the input sequence.
-     * @package YaLinqo\Pagination
+     * @package src\Pagination
      */
     public function take(int $count)
     {
@@ -470,7 +470,7 @@ trait EnumerablePagination
      * <p>The takeWhile and {@link skipWhile} methods are functional complements. Given a sequence coll and a pure function p, concatenating the results of coll->takeWhile(p) and coll->skipWhile(p) yields the same sequence as coll.
      * @param callable $predicate {(v, k) ==> result} A function to test each element for a condition.
      * @return Enumerable A sequence that contains the elements from the input sequence that occur before the element at which the test no longer passes.
-     * @package YaLinqo\Pagination
+     * @package src\Pagination
      */
     public function takeWhile($predicate)
     {

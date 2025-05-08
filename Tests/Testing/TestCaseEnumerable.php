@@ -3,7 +3,7 @@
 namespace YaLinqo\Tests\Testing;
 
 use PHPUnit\Framework\TestCase;
-use YaLinqo\Enumerable as E, YaLinqo\Functions;
+use Gravatalonga\YaLinqo\Enumerable as E, Gravatalonga\YaLinqo\Functions;
 
 class TestCaseEnumerable extends TestCase
 {

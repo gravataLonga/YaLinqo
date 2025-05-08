@@ -1,6 +1,6 @@
 {
     "name": "gravatalonga/yalinqo",
-    "description": "YaLinqo, a LINQ-to-objects library for PHP",
+    "description": "YaLinqo, a LINQ-to-objects library for PHP. Forked for purpose of compatibility with PHP 8.3, if you want this merge to YoLinqo just send me a email. I'm was in hurry, sorry. :(",
     "license": "BSD-2-Clause",
     "homepage": "http://athari.github.io/YaLinqo",
     "keywords": ["linq", "linqo", "query", "statistic"],
@@ -29,10 +29,10 @@
     },
     "autoload": {
         "psr-4": {
-            "YaLinqo\\": "YaLinqo/"
+            "Gravatalonga\\YaLinqo\\": "src/"
         },
         "files": [
-            "YaLinqo/Linq.php"
+            "src/Linq.php"
         ]
     },
     "autoload-dev": {
@@ -40,12 +40,7 @@
             "YaLinqo\\Tests\\": "Tests/"
         }
     },
-    "extra": {
-        "branch-alias": {
-            "dev-master": "2.x-dev"
-        }
-    },
-    "script": {
+    "scripts": {
         "rector": "/vendor/bin/rector"
     }
 }

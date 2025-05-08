@@ -4,14 +4,14 @@
  * Functions class.
  * @author Alexander Prokhorov
  * @license Simplified BSD
- * @link https://github.com/Athari/YaLinqo YaLinqo on GitHub
+ * @link https://github.com/Athari/YaLinqo src on GitHub
  */
 
-namespace YaLinqo;
+namespace Gravatalonga\YaLinqo;
 
 /**
  * Container for standard functions in the form of closures.
- * @package YaLinqo
+ * @package src
  */
 class Functions
 {

@@ -2,7 +2,7 @@
 
 namespace YaLinqo\Tests\Unit;
 
-use YaLinqo\Utils as U, YaLinqo\Functions as F;
+use Gravatalonga\YaLinqo\Utils as U, Gravatalonga\YaLinqo\Functions as F;
 use YaLinqo\Tests\Stubs\Temp, YaLinqo\Tests\Testing\TestCaseEnumerable;
 
 class UtilsTest extends TestCaseEnumerable

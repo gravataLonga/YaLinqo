@@ -3,7 +3,7 @@
 namespace YaLinqo\Tests\Unit;
 
 use PHPUnit\Framework\Attributes\DataProvider;
-use YaLinqo\Enumerable as E, YaLinqo\Utils, YaLinqo\Functions, YaLinqo\Errors;
+use Gravatalonga\YaLinqo\Enumerable as E, Gravatalonga\YaLinqo\Utils, Gravatalonga\YaLinqo\Functions, Gravatalonga\YaLinqo\Errors;
 use YaLinqo\Tests\Stubs\AggregateIteratorWrapper, YaLinqo\Tests\Testing\TestCaseEnumerable;
 
 /** @covers \YaLinqo\Enumerable

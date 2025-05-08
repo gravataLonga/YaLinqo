@@ -2,7 +2,7 @@
 
 namespace YaLinqo\Tests\Unit;
 
-use YaLinqo\Functions as F;
+use Gravatalonga\YaLinqo\Functions as F;
 use YaLinqo\Tests\Testing\TestCaseEnumerable;
 
 /** @covers \YaLinqo\Functions

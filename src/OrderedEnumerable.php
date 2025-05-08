@@ -4,14 +4,14 @@
  * OrderedEnumerable class.
  * @author Alexander Prokhorov
  * @license Simplified BSD
- * @link https://github.com/Athari/YaLinqo YaLinqo on GitHub
+ * @link https://github.com/Athari/YaLinqo src on GitHub
  */
 
-namespace YaLinqo;
+namespace Gravatalonga\YaLinqo;
 
 /**
  * Subclass of Enumerable supporting ordering by multiple conditions.
- * @package YaLinqo
+ * @package src
  */
 class OrderedEnumerable extends Enumerable
 {

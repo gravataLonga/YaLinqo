@@ -4,15 +4,15 @@
  * Utils class.
  * @author Alexander Prokhorov
  * @license Simplified BSD
- * @link https://github.com/Athari/YaLinqo YaLinqo on GitHub
+ * @link https://github.com/Athari/YaLinqo src on GitHub
  */
 
-namespace YaLinqo;
+namespace Gravatalonga\YaLinqo;
 
 /**
  * Functions for creating lambdas.
  * @internal
- * @package YaLinqo
+ * @package src
  */
 class Utils
 {

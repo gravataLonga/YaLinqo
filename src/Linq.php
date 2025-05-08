@@ -4,22 +4,20 @@
  * Global functions and initialization.
  * @author Alexander Prokhorov
  * @license Simplified BSD
- * @link https://github.com/Athari/YaLinqo YaLinqo on GitHub
+ * @link https://github.com/Athari/YaLinqo src on GitHub
  */
 
-\YaLinqo\Functions::init();
-\YaLinqo\Utils::init();
+use Gravatalonga\YaLinqo\Enumerable;
+use Gravatalonga\YaLinqo\Functions;
+use Gravatalonga\YaLinqo\Utils;
+
+Functions::init();
+Utils::init();
 
 if (!function_exists('from')) {
-    /**
-     * Create Enumerable from an array or any other traversible source.
-     * @param array|\Iterator|\IteratorAggregate|\YaLinqo\Enumerable $source
-     * @throws \InvalidArgumentException If source is not array or Traversible or Enumerable.
-     * @return \YaLinqo\Enumerable
-     * @see \YaLinqo\Enumerable::from
-     */
-    function from($source): \YaLinqo\Enumerable
+
+    function from($source): Enumerable
     {
-        return \YaLinqo\Enumerable::from($source);
+        return Enumerable::from($source);
     }
 }
