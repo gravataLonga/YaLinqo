@@ -140,18 +140,18 @@ class Utils
             if (isset(self::$lambdaCache[$closure][$closureArgs]))
                 return self::$lambdaCache[$closure][$closureArgs];
             $posArrow = strpos($closure, '==>', $posDollar);
+
             if ($posArrow !== false) {
                 $args = trim(substr($closure, 0, $posArrow), "() \r\n\t");
                 $code = substr($closure, $posArrow + 3);
-            }
-            else {
+            }else {
                 $args = '$' . str_replace(',', '=null,$', $closureArgs) . '=null';
                 $code = $closure;
             }
             $code = trim($code, " \r\n\t");
             if (strlen($code) > 0 && $code[0] != '{')
                 $code = "return {$code};";
-            $fun = @create_function($args, $code);
+            $fun = create_function($args, $code);
             // @codeCoverageIgnoreStart
             if (!$fun)
                 throw new \InvalidArgumentException(self::ERROR_CANNOT_PARSE_LAMBDA);

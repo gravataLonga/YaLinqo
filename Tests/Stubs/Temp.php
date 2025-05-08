@@ -6,11 +6,8 @@ namespace YaLinqo\Tests\Stubs;
 
 class Temp
 {
-    public $v;
-
-    public function __construct($v)
+    public function __construct(public $v)
     {
-        $this->v = $v;
     }
 
     public function foo($a)

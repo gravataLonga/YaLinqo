@@ -15,16 +15,6 @@ namespace YaLinqo;
  */
 class OrderedEnumerable extends Enumerable
 {
-    /** Source sequence. @var Enumerable */
-    private $source;
-    /** Parent ordered sequence. @var \YaLinqo\OrderedEnumerable */
-    private $parent;
-    /** Sort order for array_multisort: SORT_DESC or SORT_ASC. @var int|bool */
-    private $sortOrder;
-    /** Sort flags for array_multisort. @var int */
-    private $sortFlags;
-    /** Whether comparer result needs to be negated (used in usort). @var bool */
-    private $isReversed;
     /** Key selector. @var callable {(v, k) ==> key} */
     private $keySelector;
     /** Comprarer function. @var callable {(a, b) ==> diff} */
@@ -40,22 +30,17 @@ class OrderedEnumerable extends Enumerable
      * @param callable $comparer {(a, b) ==> diff} Difference between a and b: &lt;0 if a&lt;b; 0 if a==b; &gt;0 if a&gt;b
      * @param \YaLinqo\OrderedEnumerable $parent
      */
-    public function __construct($source, $sortOrder, $sortFlags, $isReversed, $keySelector, $comparer, $parent = null)
+    public function __construct(private $source, private $sortOrder, private $sortFlags, private $isReversed, $keySelector, $comparer, private $parent = null)
     {
-        $this->source = $source;
-        $this->sortOrder = $sortOrder;
-        $this->sortFlags = $sortFlags;
-        $this->isReversed = $isReversed;
         $this->keySelector = $keySelector;
         $this->comparer = $comparer;
-        $this->parent = $parent;
     }
 
     private function getSingleComparer()
     {
         $comparer = $this->comparer;
         if ($this->isReversed)
-            $comparer = function($a, $b) use ($comparer) { return -$comparer($a, $b); };
+            $comparer = (fn($a, $b) => -$comparer($a, $b));
         return $comparer;
     }
 
@@ -110,6 +95,7 @@ class OrderedEnumerable extends Enumerable
     }
 
     /** {@inheritdoc} */
+    #[\Override]
     public function getIterator(): \Traversable
     {
         $canMultisort = $this->sortFlags !== null;

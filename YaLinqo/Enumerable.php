@@ -73,27 +73,15 @@ class Enumerable implements \IteratorAggregate
      */
     public function cast(string $type): Enumerable
     {
-        switch ($type) {
-            case 'array':
-                return $this->select(function($v) { return (array)$v; });
-            case 'int':
-            case 'integer':
-            case 'long':
-                return $this->select(function($v) { return (int)$v; });
-            case 'float':
-            case 'real':
-            case 'double':
-                return $this->select(function($v) { return (float)$v; });
-            case 'null':
-            case 'unset':
-                return $this->select(function($v) { return null; });
-            case 'object':
-                return $this->select(function($v) { return (object)$v; });
-            case 'string':
-                return $this->select(function($v) { return (string)$v; });
-            default:
-                throw new \InvalidArgumentException(Errors::UNSUPPORTED_BUILTIN_TYPE);
-        }
+        return match ($type) {
+            'array' => $this->select(fn($v) => (array)$v),
+            'int', 'integer', 'long' => $this->select(fn($v) => (int)$v),
+            'float', 'real', 'double' => $this->select(fn($v) => (float)$v),
+            'null', 'unset' => $this->select(fn($v) => null),
+            'object' => $this->select(fn($v) => (object)$v),
+            'string' => $this->select(fn($v) => (string)$v),
+            default => throw new \InvalidArgumentException(Errors::UNSUPPORTED_BUILTIN_TYPE),
+        };
     }
 
     /**
@@ -106,33 +94,18 @@ class Enumerable implements \IteratorAggregate
      */
     public function ofType(string $type): Enumerable
     {
-        switch ($type) {
-            case 'array':
-                return $this->where(function($v) { return is_array($v); });
-            case 'int':
-            case 'integer':
-            case 'long':
-                return $this->where(function($v) { return is_int($v); });
-            case 'callable':
-            case 'callback':
-                return $this->where(function($v) { return is_callable($v); });
-            case 'float':
-            case 'real':
-            case 'double':
-                return $this->where(function($v) { return is_float($v); });
-            case 'null':
-                return $this->where(function($v) { return is_null($v); });
-            case 'numeric':
-                return $this->where(function($v) { return is_numeric($v); });
-            case 'object':
-                return $this->where(function($v) { return is_object($v); });
-            case 'scalar':
-                return $this->where(function($v) { return is_scalar($v); });
-            case 'string':
-                return $this->where(function($v) { return is_string($v); });
-            default:
-                return $this->where(function($v) use ($type) { return is_object($v) && get_class($v) === $type; });
-        }
+        return match ($type) {
+            'array' => $this->where(fn($v) => is_array($v)),
+            'int', 'integer', 'long' => $this->where(fn($v) => is_int($v)),
+            'callable', 'callback' => $this->where(fn($v) => is_callable($v)),
+            'float', 'real', 'double' => $this->where(fn($v) => is_float($v)),
+            'null' => $this->where(fn($v) => is_null($v)),
+            'numeric' => $this->where(fn($v) => is_numeric($v)),
+            'object' => $this->where(fn($v) => is_object($v)),
+            'scalar' => $this->where(fn($v) => is_scalar($v)),
+            'string' => $this->where(fn($v) => is_string($v)),
+            default => $this->where(fn($v) => is_object($v) && $v::class === $type),
+        };
     }
 
     /**
@@ -284,9 +257,9 @@ class Enumerable implements \IteratorAggregate
         $outerKeySelector = Utils::createLambda($outerKeySelector, 'v,k', Functions::$key);
         $innerKeySelector = Utils::createLambda($innerKeySelector, 'v,k', Functions::$key);
         /** @noinspection PhpUnusedParameterInspection */
-        $resultSelectorValue = Utils::createLambda($resultSelectorValue, 'v,e,k', function($v, $e, $k) { return [ $v, $e ]; });
+        $resultSelectorValue = Utils::createLambda($resultSelectorValue, 'v,e,k', fn($v, $e, $k) => [ $v, $e ]);
         /** @noinspection PhpUnusedParameterInspection */
-        $resultSelectorKey = Utils::createLambda($resultSelectorKey, 'v,e,k', function($v, $e, $k) { return $k; });
+        $resultSelectorKey = Utils::createLambda($resultSelectorKey, 'v,e,k', fn($v, $e, $k) => $k);
 
         return new self(function() use ($inner, $outerKeySelector, $innerKeySelector, $resultSelectorValue, $resultSelectorKey) {
             $lookup = $inner->toLookup($innerKeySelector);
@@ -318,9 +291,9 @@ class Enumerable implements \IteratorAggregate
         $outerKeySelector = Utils::createLambda($outerKeySelector, 'v,k', Functions::$key);
         $innerKeySelector = Utils::createLambda($innerKeySelector, 'v,k', Functions::$key);
         /** @noinspection PhpUnusedParameterInspection */
-        $resultSelectorValue = Utils::createLambda($resultSelectorValue, 'v1,v2,k', function($v1, $v2, $k) { return [ $v1, $v2 ]; });
+        $resultSelectorValue = Utils::createLambda($resultSelectorValue, 'v1,v2,k', fn($v1, $v2, $k) => [ $v1, $v2 ]);
         /** @noinspection PhpUnusedParameterInspection */
-        $resultSelectorKey = Utils::createLambda($resultSelectorKey, 'v1,v2,k', function($v1, $v2, $k) { return $k; });
+        $resultSelectorKey = Utils::createLambda($resultSelectorKey, 'v1,v2,k', fn($v1, $v2, $k) => $k);
 
         return new self(function() use ($inner, $outerKeySelector, $innerKeySelector, $resultSelectorValue, $resultSelectorKey) {
             $lookup = $inner->toLookup($innerKeySelector);
@@ -537,7 +510,7 @@ class Enumerable implements \IteratorAggregate
 
         if ($selector !== null)
             $enum = $enum->select($selector);
-        return $enum->aggregate(function($a, $b) use ($comparer) { return $comparer($a, $b) > 0 ? $a : $b; });
+        return $enum->aggregate(fn($a, $b) => $comparer($a, $b) > 0 ? $a : $b);
     }
 
     /**
@@ -585,7 +558,7 @@ class Enumerable implements \IteratorAggregate
 
         if ($selector !== null)
             $enum = $enum->select($selector);
-        return $enum->aggregate(function($a, $b) use ($comparer) { return $comparer($a, $b) < 0 ? $a : $b; });
+        return $enum->aggregate(fn($a, $b) => $comparer($a, $b) < 0 ? $a : $b);
     }
 
     /**
@@ -915,7 +888,7 @@ class Enumerable implements \IteratorAggregate
     {
         $array = [];
         foreach ($enum as $k => $v)
-            $array[$k] = $v instanceof \Traversable || is_array($v) ? $this->toArrayDeepProc($v) : $v;
+            $array[$k] = is_iterable($v) ? $this->toArrayDeepProc($v) : $v;
         return $array;
     }
 
@@ -965,7 +938,7 @@ class Enumerable implements \IteratorAggregate
     {
         $array = [];
         foreach ($enum as $v)
-            $array[] = $v instanceof \Traversable || is_array($v) ? $this->toListDeepProc($v) : $v;
+            $array[] = is_iterable($v) ? $this->toListDeepProc($v) : $v;
         return $array;
     }
 

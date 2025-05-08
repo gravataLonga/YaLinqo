@@ -6,14 +6,11 @@ namespace YaLinqo\Tests\Stubs;
 
 class AggregateIteratorWrapper implements \IteratorAggregate
 {
-    private $iterator;
-
     /**
      * @param \Iterator $iterator
      */
-    public function __construct($iterator)
+    public function __construct(private $iterator)
     {
-        $this->iterator = $iterator;
     }
 
     public function getIterator()

@@ -8,3 +8,5 @@ tmp.php
 .project
 .buildpath
 .settings
+.idea
+.phpunit.cache

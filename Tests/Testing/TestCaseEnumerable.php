@@ -2,13 +2,14 @@
 
 namespace YaLinqo\Tests\Testing;
 
+use PHPUnit\Framework\TestCase;
 use YaLinqo\Enumerable as E, YaLinqo\Functions;
 
-class TestCaseEnumerable extends \PHPUnit\Framework\TestCase
+class TestCaseEnumerable extends TestCase
 {
-    protected function setUp()
+    protected function setUp(): void
     {
-        $this->setOutputCallback(function($str) { return str_replace("\r\n", "\n", $str); });
+        // $this->setOutputCallback(function($str) { return str_replace("\r\n", "\n", $str); });
     }
 
     public function setExpectedException($exception, $message = null)

@@ -44,7 +44,7 @@ class UtilsTest extends TestCaseEnumerable
      */
     function testCreateLambda_closure()
     {
-        $f = U::createLambda(function($a, $b) { return $a + $b; }, 'a,b');
+        $f = U::createLambda(fn($a, $b) => $a + $b, 'a,b');
         $this->assertSame(5, $f(2, 3));
     }
 
@@ -61,11 +61,11 @@ class UtilsTest extends TestCaseEnumerable
     function testCreateLambda_callableArray()
     {
         $o = new Temp(2);
-        $f = U::createLambda([ $o, 'foo' ], 'a');
+        $f = U::createLambda($o->foo(...), 'a');
         $this->assertSame(5, $f(3));
-        $f = U::createLambda([ 'YaLinqo\Tests\Stubs\Temp', 'bar' ], 'a');
+        $f = U::createLambda([ \YaLinqo\Tests\Stubs\Temp::class, 'bar' ], 'a');
         $this->assertSame(4, $f(4));
-        $f = U::createLambda([ get_class($o), 'bar' ], 'a');
+        $f = U::createLambda([ $o::class, 'bar' ], 'a');
         $this->assertSame(6, $f(6));
     }
 

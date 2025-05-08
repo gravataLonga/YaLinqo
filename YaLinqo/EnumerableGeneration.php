@@ -103,11 +103,11 @@ trait EnumerableGeneration
         $funcKey = Utils::createLambda($funcKey, 'v,k', false);
 
         return new self(function() use ($funcValue, $funcKey, $seedValue, $seedKey) {
-            $key = $seedKey === null ? ($funcKey ? $funcKey($seedValue, $seedKey) : 0) : $seedKey;
-            $value = $seedValue === null ? $funcValue($seedValue, $seedKey) : $seedValue;
+            $key = $seedKey ?? $funcKey ? $funcKey($seedValue, $seedKey) : 0;
+            $value = $seedValue ?? $funcValue($seedValue, $seedKey);
             yield $key => $value;
             while (true) {
-                list($value, $key) = [
+                [$value, $key] = [
                     $funcValue($value, $key),
                     $funcKey ? $funcKey($value, $key) : $key + 1,
                 ];

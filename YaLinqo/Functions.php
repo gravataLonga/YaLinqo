@@ -79,19 +79,19 @@ class Functions
     /** @internal */
     public static function init()
     {
-        self::$identity = function($x) { return $x; };
+        self::$identity = (fn($x) => $x);
 
         /** @noinspection PhpUnusedParameterInspection */
-        self::$key = function($v, $k) { return $k; };
+        self::$key = (fn($v, $k) => $k);
 
         /** @noinspection PhpUnusedParameterInspection */
-        self::$value = function($v, $k) { return $v; };
+        self::$value = (fn($v, $k) => $v);
 
-        self::$true = function() { return true; };
+        self::$true = (fn() => true);
 
-        self::$false = function() { return false; };
+        self::$false = (fn() => false);
 
-        self::$blank = function() { };
+        self::$blank = function(): void { };
 
         self::$compareStrict = function($a, $b) {
             if ($a === $b)
@@ -129,13 +129,9 @@ class Functions
                 return 1;
         };
 
-        self::$compareInt = function($a, $b) {
-            return $a - $b;
-        };
+        self::$compareInt = (fn($a, $b) => $a - $b);
 
-        self::$compareIntReversed = function($a, $b) {
-            return $b - $a;
-        };
+        self::$compareIntReversed = (fn($a, $b) => $b - $a);
     }
 
     /**

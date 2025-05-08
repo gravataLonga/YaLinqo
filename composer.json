@@ -1,5 +1,5 @@
 {
-    "name": "athari/yalinqo",
+    "name": "gravatalonga/yalinqo",
     "description": "YaLinqo, a LINQ-to-objects library for PHP",
     "license": "BSD-2-Clause",
     "homepage": "http://athari.github.io/YaLinqo",
@@ -8,6 +8,10 @@
         {
             "name": "Alexander Prokhorov",
             "homepage": "https://github.com/Athari/"
+        },
+        {
+            "name": "Jonathan Fontes",
+            "homepage": "https://github.com/gravataLonga/"
         }
     ],
     "support": {
@@ -16,12 +20,12 @@
         "docs": "http://athari.github.io/YaLinqo"
     },
     "require": {
-        "php": ">=7.0"
+        "php": ">=8.3",
+        "php5friends/polyfill-create_function": "^0.0.4"
     },
     "require-dev": {
-        "phpunit/phpunit": "^6.5",
-        "phpdocumentor/phpdocumentor": "^2.8",
-        "satooshi/php-coveralls": "^2.0"
+        "phpunit/phpunit": "^12.1",
+        "rector/rector": "*"
     },
     "autoload": {
         "psr-4": {
@@ -40,5 +44,8 @@
         "branch-alias": {
             "dev-master": "2.x-dev"
         }
+    },
+    "script": {
+        "rector": "/vendor/bin/rector"
     }
 }
